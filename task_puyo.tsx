@@ -9,6 +9,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import Puyo from './puyo';
 
+// 丸オブジェクトをいれる入れ子を作成
 var Puyos: any[] = [];
 
 // 型指定
@@ -24,7 +25,6 @@ type Todo = {
 // Modeタイプ定義
 type Mode = 'list' | 'add';
 
-// TypeScriptでのファンクションコンポーネントの型指定
 function App ( {navigation} ) {
 
   // 初期値
@@ -98,7 +98,7 @@ function App ( {navigation} ) {
     deleteTodo(id);
   }
 
-  // ニコニコ機能の紐付け。タスクのタイトルをテキストとして入れている。
+  // ぷよぷよ機能の紐付け。配置の番号とidを記述。
   Puyos = [];
   for (let i = 0; i < todos.length; i++) {
     Puyos.push(
@@ -109,7 +109,7 @@ function App ( {navigation} ) {
   //日付から文字列に変換する関数
   function getStringFromDate(date) {
     var year_str = date.getFullYear();
-    //月だけ+1すること
+    //月だけ+1する
     var month_str = 1 + date.getMonth();
     var day_str = date.getDate();
 
@@ -188,8 +188,6 @@ function App ( {navigation} ) {
                       { todo.title }: { todo.description }: {todo.deadline}
                     </Text>
                   </Swipeout>
-                  {/* ぷよぷよ機能の紐付け */}
-                  {/* <Puyo num={todo.id}/> */}
                 </View>
               );
             }}
@@ -197,6 +195,7 @@ function App ( {navigation} ) {
           />
         </View>
       </SafeAreaView>
+      {/* オブジェクトの表示機能 */}
       {Puyos}
       {/* タスクを追加するボタン */} 
       <View>
@@ -231,20 +230,18 @@ function App ( {navigation} ) {
                 onChangeText={ text => setDeadline(text) }
                 style={ styles.textinput }
               />
+              {/* カレンダー型の入力input */}
               <View style={styles.calender}>
                 <Icon.Button name="calendar" size={20} color='#F4F1DE' backgroundColor='transparent'
                   onPress={() => setShowDay(!isShowDatePicker)} />
                   { isShowDatePicker ?
                     <DateTimePicker
                       mode="date"
-                      // display="calendar"
                       value={pick_day}
-                      locale="ja-JA"// 赤線だけど動きます。
+                      locale="ja-JA"
                       display="default"
-                      // textColor="transparent"
                       themeVariant="dark"
                       style={{opacity: 0.2}}
-                      // textColor={color || undefined}
                       disabled={true}
                       onChange={changeDay} /> : null }
               </View>
@@ -354,8 +351,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderColor: '#3D405B',
     color: "#3D405B",
-    // opacity: 0.5,
-    // borderRadius: 10,
     borderWidth: 1,
     margin: 5,
     marginHorizontal: 10,

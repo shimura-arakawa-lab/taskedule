@@ -1,6 +1,7 @@
 import React, { Component,useRef, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, Animated, Dimensions, Image, TouchableOpacity, FlatList, InteractionManager } from 'react-native';
 
+// 色分けのボールカラーの用意
 const ball_color = ["#E07A5F","#81B29A","#F2CC8F"]
 
 export default class Main extends Component {
@@ -9,6 +10,7 @@ export default class Main extends Component {
     this.state = {
       moveAnimation : new Animated.Value(-1*Dimensions.get('window').height),
     };
+    // オブジェクトの配置（番号）によって、下に到達する距離を計算している
     var move_value=0;
     if( this.props.num%2 == 0 ) {
       move_value = this.props.num*85
@@ -24,7 +26,9 @@ export default class Main extends Component {
     }, 1000);
   }
   render(){
+    // 配置が偶数番目のオブジェクトは、右に移動させるように記述
     const left_num =  (this.props.num%2)*170;
+    // idによって、色分けを行うように計算
     const ball_num = (this.props.id-1) % 3;
     return (
       <View style={styles.container}>
@@ -56,9 +60,3 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
-// export default function App() {
-//   return (
-//     <Main num={0}/>
-//   );
-// }

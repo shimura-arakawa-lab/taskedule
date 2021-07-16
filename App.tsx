@@ -8,20 +8,25 @@ import { createDrawerNavigator,
   DrawerItem, } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+// ディレクトリから、該当ファイルをimport
 import Home from './task';
-import Webvieww from './webview';
+import Webview from './webview';
 import puyo from './task_puyo';
 
+// settingで使う変数
 var switchText = "ぷよぷよモード";
 var modeText = "Normal";
 
+// ホーム画面の切替で使う変数（未実装）
 var nicoOrPuyo = false;
 
-class ToggleButton extends Component {
+// setting画面のコンポーネント
+class Setting extends Component {
   state = {
     switching: false,
     nico_puyo_mode_switching: false,
   }
+  // スイッチと連動して、表示する文言を変更する
   switchValue = (value) => {
     this.setState({ switching: value });
     modeText = value ? '    Dark' : 'Normal';
@@ -31,12 +36,13 @@ class ToggleButton extends Component {
     switchText = value ? 'ニコニコモード' : 'ぷよぷよモード';
     nicoOrPuyo = value;
   }
+  // ホーム画面の切替を行う際に使う予定の関数（未実装）
   getNicoPuyoValue(){
     return this.state.nico_puyo_mode_switching;
   }
   render() {
     const switching = this.state.switching;
-    const navigate = this.props.navigation; // うまく動くけど画面上はerror
+    const navigate = this.props.navigation; // errorでてるけどうまく動く
     return (
       <View style={styles.container}>
         <View style={{marginLeft: 10, marginTop: 50 ,width: 50}}>
@@ -92,6 +98,7 @@ const styles = StyleSheet.create({
   },
 });
 
+/////////////////////////////////// ナビゲーションドロワー ////////////////////////////////////
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
@@ -101,20 +108,6 @@ function CustomDrawerContent(props) {
 }
 
 const Drawer = createDrawerNavigator();
-
-// function Feed() {
-//   const [nicopuyo, setNicoPuyo] = useState(false);
-//   useFocusEffect(
-//     React.useCallback(() => {
-//       setNicoPuyo(nicoOrPuyo);
-//       alert(nicopuyo);
-//     }, [])
-//   );
-//   if (nicopuyo){
-//     return <Home />;
-//   }
-//   return <Webvieww/>;
-// }
 
 function MyDrawer() {
   return (
@@ -131,37 +124,15 @@ function MyDrawer() {
       drawerContent={props => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={puyo} options={{ drawerLabel: 'Home' }}/>
-      <Drawer.Screen name="Webview" component={Webvieww} />
+      <Drawer.Screen name="Webview" component={Webview} />
       <Drawer.Screen name="object_obstacle" component={puyo} />
       <Drawer.Screen name="text_moving" component={Home} />
-      <Drawer.Screen name="Setting" component={ToggleButton} />
+      <Drawer.Screen name="S" component={Setting} />
     </Drawer.Navigator>
   );
 }
 
-// function MyDrawer2() {
-//   return (
-//     <Drawer.Navigator initialRouteName="Home" overlayColor="rgba( 61, 64, 91, 0.8 )"
-//       drawerStyle={{
-//         backgroundColor: '#3D405B',
-//         width: "70%",
-//       }}
-//       drawerContentOptions={{
-//         activeBackgroundColor: "#f4f1de",
-//         activeTintColor: "#3D405B",
-//         inactiveTintColor: "#F4F1DE"
-//       }}
-//       drawerContent={props => <CustomDrawerContent {...props} />}
-//     >
-//       <Drawer.Screen name="Home" component={Webvieww} options={{ drawerLabel: 'Home' }}/>
-//       <Drawer.Screen name="Webview" component={Webvieww} />
-//       <Drawer.Screen name="text_moving" component={Home} />
-//       <Drawer.Screen name="Setting" component={ToggleButton} />
-//     </Drawer.Navigator>
-//   );
-// }
-
-// nicoOrPuyoの値でドロワーの中身が変わるようにしたい。
+// nicoOrPuyoの値でドロワーの中身が変わるようにしたい。（未実装）
 export default class Main extends Component {
   state = {
     nicopuyo: nicoOrPuyo,
@@ -174,37 +145,3 @@ export default class Main extends Component {
     );
   }
 }
-
-// function Feed({navigation}){
-//   const [nicopuyo, setNicoPuyo] = useState(false);
-//   useEffect(() => {
-//     const willFocusSubscription = 
-//     navigation.addListener('focus', () => {
-//       setNicoPuyo(nicoOrPuyo);
-//     })
-//     // setNicoPuyo(nicoOrPuyo);
-//     // Alert.alert(nicopuyo.toString());
-//     return willFocusSubscription;
-//   }, []);
-//   if (nicopuyo){
-//     return <MyDrawer />;
-//   }
-//   return<MyDrawer2 />;
-// }
-
-// class Feed extends Component{
-//   render(){
-//     if (nicoOrPuyo){
-//       return Home;
-//     }
-//     return Webvieww;
-//   }
-// }
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Feed key={nicoOrPuyo.toString()}/>
-//     </NavigationContainer>
-//   );
-// }
