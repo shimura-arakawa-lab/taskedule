@@ -127,7 +127,7 @@ function MyDrawer() {
       <Drawer.Screen name="Webview" component={Webview} />
       <Drawer.Screen name="object_obstacle" component={puyo} />
       <Drawer.Screen name="text_moving" component={Home} />
-      <Drawer.Screen name="S" component={Setting} />
+      <Drawer.Screen name="Setting" component={Setting} />
     </Drawer.Navigator>
   );
 }
