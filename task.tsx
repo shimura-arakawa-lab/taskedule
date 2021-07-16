@@ -116,12 +116,7 @@ function App ( {navigation} ) {
     setDeadline(selectedDate.toString().slice( 0, -23 )); // 他のところをdateにするのだるかったので、stringに変換。
   };
 
-  // ニコニコ機能の紐付け。タスクのタイトルをテキストとして入れている。
-  // var nico_num = Math.floor(Math.random() * (todos.length));
-  // var nico;
-  // if (todos.length!=0){
-  //   nico = <MoveText text={todos[nico_num].title} />
-  // }
+  // ニコニコ機能の紐付け。タスクのタイトルとidを入れている。
   MoveTexts = [];
   for (let i = 0; i < todos.length; i++) {
     MoveTexts.push(
@@ -186,8 +181,6 @@ function App ( {navigation} ) {
                       { todo.title }: { todo.description }: {todo.deadline}
                     </Text>
                   </Swipeout>
-                  {/* ニコニコ機能の紐付け */}
-                  {/* <MoveText text={todo.title}/> */}
                 </View>
               );
             }}
@@ -195,6 +188,7 @@ function App ( {navigation} ) {
           />
         </View>
       </SafeAreaView>
+      {/* テキストを表示するタグの生成 */}
       {MoveTexts}
       {/* タスクを追加するボタン */} 
       <View>
@@ -229,20 +223,17 @@ function App ( {navigation} ) {
                 onChangeText={ text => setDeadline(text) }
                 style={ styles.textinput }
               />
+              {/* カレンダー型input */}
               <View style={styles.calender}>
                 <Icon.Button name="calendar" size={20} color='#F4F1DE' backgroundColor='transparent'
                   onPress={() => setShowDay(!isShowDatePicker)} />
                   { isShowDatePicker ?
                     <DateTimePicker
                       mode="date"
-                      // display="calendar"
                       value={pick_day}
-                      locale="ja-JA"// 赤線だけど動きます。
                       display="default"
-                      // textColor="transparent"
                       themeVariant="dark"
                       style={{opacity: 0.2}}
-                      // textColor={color || undefined}
                       disabled={true}
                       onChange={changeDay} /> : null }
               </View>
@@ -321,7 +312,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 16,
     bottom: 32,
-    // bottom: 650
   },
   add: {
     fontSize: 18,
@@ -352,8 +342,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderColor: '#3D405B',
     color: "#3D405B",
-    // opacity: 0.5,
-    // borderRadius: 10,
     borderWidth: 1,
     margin: 5,
     marginHorizontal: 10,

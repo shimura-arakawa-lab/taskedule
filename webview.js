@@ -10,6 +10,7 @@ var Puyos = [];
 
 export default class MyWebComponent extends Component {
   render() {
+    // jsonファイルから、格納されているtodoデータを読み込み、オブジェクトを作成する
     for (let i = 0; i < todoList.length; i++) {
       Puyos.push(
         <Puyo num={i} id={todoList[i].id}/>
